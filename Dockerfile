@@ -17,4 +17,5 @@ VOLUME ["/var/lib/mysql"]
 EXPOSE 3306
 CMD ["/usr/local/bin/run"]
 
+RUN mkdir -p /run/mysqld
 

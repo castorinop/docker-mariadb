@@ -34,4 +34,5 @@ fi
 /usr/sbin/mysqld -u mysql --bootstrap --verbose=0 $MYSQLD_ARGS < $tfile
 rm -f $tfile
 
+chown -R mysql.mysql /var/lib/mysql /run/mysqld
 exec /usr/sbin/mysqld -u mysql $MYSQLD_ARGS
