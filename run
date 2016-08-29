@@ -1,9 +1,10 @@
 #!/bin/sh -x 
 set -e
 
-
-mysql_install_db --rpm > /dev/null
-chown -R mysql.mysql /var/lib/mysql /run/mysqld
+if [ ! -f "/var/lib/mysql/ibdata1" ]; then
+	mysql_install_db --rpm > /dev/null
+	chown -R mysql.mysql /var/lib/mysql /run/mysqld
+fi
 
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-""}
 MYSQL_DATABASE=${MYSQL_DATABASE:-""}
