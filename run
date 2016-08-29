@@ -6,7 +6,7 @@ if [ ! -f "/var/lib/mysql/ibdata1" ]; then
 	chown -R mysql.mysql /var/lib/mysql /run/mysqld
 fi
 
-MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-""}
+MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"secret"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-""}
 MYSQL_USER=${MYSQL_USER:-""}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-""}
@@ -20,8 +20,7 @@ fi
 cat << EOF > $tfile
 USE mysql;
 FLUSH PRIVILEGES;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
-UPDATE user SET password=PASSWORD("$MYSQL_ROOT_PASSWORD") WHERE user='root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
 EOF
 
 if [[ "$MYSQL_DATABASE" != "" ]]; then
