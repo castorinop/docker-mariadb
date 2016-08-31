@@ -2,7 +2,8 @@
 set -e
 
 if [ ! -f "/var/lib/mysql/ibdata1" ]; then
-	mysql_install_db --rpm > /dev/null
+        echo "installing database skeleton"
+	mysql_install_db --rpm --skip-networking > /dev/null 
 	chown -R mysql.mysql /var/lib/mysql /run/mysqld
 fi
 
@@ -31,7 +32,7 @@ if [[ "$MYSQL_DATABASE" != "" ]]; then
     fi
 fi
 
-/usr/bin/mysqld_safe -u mysql --bootstrap --verbose=0 $MYSQLD_ARGS < $tfile
+/usr/bin/mysqld -u mysql --bootstrap --skip-networking $MYSQLD_ARGS < $tfile
 rm -f $tfile
 
-exec /usr/bin/mysqld_safe -u mysql $MYSQLD_ARGS
+exec /usr/bin/mysqld -u mysql $MYSQLD_ARGS
