@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine
+FROM alpine
 
 RUN apk -U upgrade && \
     apk --update add \
