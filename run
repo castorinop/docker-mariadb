@@ -1,5 +1,12 @@
 #!/bin/sh
-set -e
+set -eo pipefail
+
+if [ -f "/var/lib/mysql/aria_log_control" ]; then
+        rm -f /var/lib/mysql/aria*
+fi
+if [ -f "/var/lib/mysql/mysql.sock" ]; then
+	rm -f /var/lib/mysql/mysql.sock
+fi
 
 if [ ! -f "/var/lib/mysql/ibdata1" ]; then
         echo "installing database skeleton"
