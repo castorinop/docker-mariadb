@@ -10,7 +10,7 @@ fi
 
 if [ ! -f "/var/lib/mysql/ibdata1" ]; then
         echo "installing database skeleton"
-	mysql_install_db --rpm --skip-networking > /dev/null 
+	mysql_install_db -u mysql --rpm --skip-networking > /dev/null 
 	chown -R mysql.mysql /var/lib/mysql /run/mysqld
 fi
 
